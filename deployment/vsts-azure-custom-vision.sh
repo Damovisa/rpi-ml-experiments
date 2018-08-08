@@ -1,7 +1,7 @@
 # Required Arguments for VSTS
 # - ROOTINSTALLDIR = the root directory for installation
 # - RELEASE_RELEASEID = the release Id
-# - AGENT_RELEASEDIRECTORY = the artifact directory for this release
+# - ARTIFACTLOCATION = the artifact directory for this release
 
 if [ ! -d "$ROOTINSTALLDIR" ]; then
   mkdir $ROOTINSTALLDIR
@@ -11,4 +11,4 @@ if [ ! -d "$ROOTINSTALLDIR/$RELEASE_RELEASEID" ]; then
 fi
 
 # Copy files to the install dir:
-cp -r $AGENT_RELEASEDIRECTORY $ROOTINSTALLDIR/$RELEASE_RELEASEID
+cp -r $ARTIFACTLOCATION $ROOTINSTALLDIR/$RELEASE_RELEASEID
