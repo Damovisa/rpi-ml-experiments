@@ -19,6 +19,7 @@ B = [0, 0, 200]
 O = [0, 0, 0]
 S = [200, 200, 200]
 R = [200, 0, 0]
+G = [0, 255, 0]
 wait =   [O,O,S,S,S,S,O,O,
           O,O,S,O,O,S,O,O,
           O,O,S,O,O,S,O,O,
@@ -28,23 +29,23 @@ wait =   [O,O,S,S,S,S,O,O,
           O,O,S,Y,Y,S,O,O,
           O,O,S,S,S,S,O,O]
 
-coin =   [O,O,O,Y,Y,O,O,O,
-          O,O,Y,Y,Y,Y,O,O,
+lego =   [O,O,O,Y,Y,O,O,O,
           O,Y,Y,Y,Y,Y,Y,O,
+          Y,Y,O,Y,Y,O,Y,Y,
           Y,Y,Y,Y,Y,Y,Y,Y,
-          Y,Y,Y,Y,Y,Y,Y,Y,
+          Y,O,Y,Y,Y,Y,O,Y,
+          Y,Y,O,O,O,O,Y,Y,
           O,Y,Y,Y,Y,Y,Y,O,
-          O,O,Y,Y,Y,Y,O,O,
-          O,O,O,Y,Y,O,O,O]
+          O,O,O,W,W,O,O,O]
 
-usb =    [O,O,O,O,O,O,O,O,
-          O,O,O,O,O,O,O,O,
-          O,B,B,B,B,B,O,O,
-          O,B,B,B,B,B,S,O,
-          O,B,B,B,B,B,S,O,
-          O,B,B,B,B,B,O,O,
-          O,O,O,O,O,O,O,O,
-          O,O,O,O,O,O,O,O]
+lock =   [O,O,O,S,S,O,O,O,
+          O,O,S,O,O,S,O,O,
+          O,O,S,O,O,S,O,O,
+          O,G,G,G,G,G,G,O,
+          O,G,G,G,G,S,G,O,
+          O,G,G,G,G,S,G,O,
+          O,G,G,G,G,S,G,O,
+          O,G,G,G,G,G,G,O]
 
 both =   [O,O,O,Y,Y,O,O,O,
           O,O,Y,Y,Y,Y,O,O,
@@ -132,12 +133,12 @@ while running:
             image = Image.open(tempimagefile)
             image = convert_to_imgarray(image)
             prediction = get_prediction(image)
-            if 'coin' in prediction and 'usb' in prediction:
+            if 'lego' in prediction and 'lock' in prediction:
                 hat.set_pixels(both)
-            elif 'coin' in prediction:
-                hat.set_pixels(coin)
-            elif 'usb' in prediction:
-                hat.set_pixels(usb)
+            elif 'lego' in prediction:
+                hat.set_pixels(lego)
+            elif 'lock' in prediction:
+                hat.set_pixels(lock)
             else:
                 hat.set_pixels(nope)
             sleep(2)
