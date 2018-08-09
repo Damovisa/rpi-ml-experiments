@@ -12,3 +12,6 @@ fi
 
 # Copy files to the install dir:
 cp -r $ARTIFACTLOCATION $ROOTINSTALLDIR/$RELEASE_RELEASEID
+
+# Create an images directory for the training photos
+mkdir $ROOTINSTALLDIR/$RELEASE_RELEASEID/azure-custom-vision/images
