@@ -10,9 +10,9 @@ from sense_hat import SenseHat
 
 cam = PiCamera()
 hat = SenseHat()
-modelfile = '/home/pi/dev/ml-experiments/model-2/model.pb'
-labelfile = '/home/pi/dev/ml-experiments/model-2/labels.txt'
-tempimagefile = '/home/pi/dev/ml-experiments/pic.jpg'
+modelfile = './model-2/model.pb'
+labelfile = './model-2/labels.txt'
+tempimagefile = './pic.jpg'
 G = [0, 200, 0]
 Y = [200, 200, 0]
 B = [0, 0, 200]

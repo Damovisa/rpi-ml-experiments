@@ -49,22 +49,22 @@ while running:
     event = hat.stick.wait_for_event()
     if event.action == "pressed":
         if event.direction == "up":
-            cam.capture('/home/pi/dev/ml-experiments/images/u-' + str(i) + '.jpg')
+            cam.capture('./images/u-' + str(i) + '.jpg')
             hat.set_pixels(tick)
             sleep(1)
             i = i+1
         if event.direction == "down":
-            cam.capture('/home/pi/dev/ml-experiments/images/d-' + str(i) + '.jpg')
+            cam.capture('./images/d-' + str(i) + '.jpg')
             hat.set_pixels(tick)
             sleep(1)
             i = i+1
         if event.direction == "right":
-            cam.capture('/home/pi/dev/ml-experiments/images/r-' + str(i) + '.jpg')
+            cam.capture('./images/r-' + str(i) + '.jpg')
             hat.set_pixels(tick)
             sleep(1)
             i = i+1
         if event.direction == "left":
-            cam.capture('/home/pi/dev/ml-experiments/images/l-' + str(i) + '.jpg')
+            cam.capture('./images/l-' + str(i) + '.jpg')
             hat.set_pixels(tick)
             sleep(1)
             i = i+1
