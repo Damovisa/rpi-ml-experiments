@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Computer Vision - Reading Text";
+    var imgUrl = (string)ViewData["ImageUrl"];
+    var imgResult = ViewData["ImageResult"];
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Upload">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p>Upload an image:</p>
+                    <input type="file" name="file" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Upload" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(imgUrl)) {
+    <div class="row">
+        <div class="col-md-6">
+            <img src='@ViewData["ImageUrl"]' width="100%" alt="your uploaded image" />
+        </div>
+        <div class="col-md-6">
+            <p style="font-size:4em;">@ViewData["ImageResult"]</p>
+        </div>
+    </div>
+}
