@@ -1,0 +1,1 @@
+python ./tf-exported-custom-vision.py
