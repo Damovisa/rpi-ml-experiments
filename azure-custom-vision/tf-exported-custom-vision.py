@@ -37,7 +37,7 @@ lego =   [O,O,O,Y,Y,O,O,O,
           Y,O,Y,Y,Y,Y,O,Y,
           Y,Y,O,O,O,O,Y,Y,
           O,Y,Y,Y,Y,Y,Y,O,
-          O,O,O,W,W,O,O,O]
+          O,O,O,O,O,O,O,O]
 
 lock =   [O,O,O,S,S,O,O,O,
           O,O,S,O,O,S,O,O,
