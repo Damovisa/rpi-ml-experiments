@@ -39,14 +39,14 @@ lego =   [O,O,O,Y,Y,O,O,O,
           O,Y,Y,Y,Y,Y,Y,O,
           O,O,O,O,O,O,O,O]
 
-lock =   [O,O,O,S,S,O,O,O,
-          O,O,S,O,O,S,O,O,
-          O,O,S,O,O,S,O,O,
-          O,G,G,G,G,G,G,O,
-          O,G,G,G,G,S,G,O,
-          O,G,G,G,G,S,G,O,
-          O,G,G,G,G,S,G,O,
-          O,G,G,G,G,G,G,O]
+car =    [O,O,O,O,O,O,O,O,
+          O,O,O,O,O,O,O,O,
+          O,O,B,B,B,B,B,O,
+          O,O,B,B,B,B,B,B,
+          B,B,B,B,B,B,B,B,
+          B,S,S,B,B,S,S,B,
+          O,S,S,O,O,S,S,O,
+          O,O,O,O,O,O,O,O]
 
 both =   [O,O,O,Y,Y,O,O,O,
           O,O,Y,Y,Y,Y,O,O,
@@ -134,12 +134,12 @@ while running:
             image = Image.open(tempimagefile)
             image = convert_to_imgarray(image)
             prediction = get_prediction(image)
-            if 'lego' in prediction and 'lock' in prediction:
+            if 'lego' in prediction and 'car' in prediction:
                 hat.set_pixels(both)
             elif 'lego' in prediction:
                 hat.set_pixels(lego)
-            elif 'lock' in prediction:
-                hat.set_pixels(lock)
+            elif 'car' in prediction:
+                hat.set_pixels(car)
             else:
                 hat.set_pixels(nope)
             sleep(2)
