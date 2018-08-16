@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Computer Vision - Reading Text";
+    var imgUrl = (string)ViewData["ImageUrl"];
+    var imgResult = ViewData["ImageResult"];
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="screenshot" style="text-align:center;">
+            <video class="videostream" autoplay="" style="width:100%"></video>
+            <img id="screenshot-img" style="width:100%;display:none;"/>
+            </p><p><button id="screenshot-button" disabled="">Take screenshot</button></p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <p id="imageResult" style="font-size:4em;"></p>
+    </div>
+</div>
+
+<script>
+const captureVideoButton = document.querySelector('#screenshot .capture-button');
+const screenshotButton = document.querySelector('#screenshot-button');
+const imageResult = document.querySelector("#imageResult")
+const img = document.querySelector('#screenshot img');
+const video = document.querySelector('#screenshot video');
+
+const canvas = document.createElement('canvas');
+
+const constraints = {
+  video: true
+};
+
+  navigator.mediaDevices.getUserMedia(constraints).
+    then(handleSuccess).catch(handleError);
+
+screenshotButton.onclick = video.onclick = function() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  img.style.display = 'block';
+  img.src = canvas.toDataURL('image/png');
+  video.style.display = 'none';
+  video.srcObject = null;
+  imageResult.innerText = "...";
+
+  $.ajax({
+    type: "POST",
+    url: "/FileUpload",
+    data: { 
+        imgBase64: img.src
+    }
+    }).done(function(o) {
+        console.debug(o);
+        imageResult.innerText = o.result;
+    });
+};
+
+function handleSuccess(stream) {
+  screenshotButton.disabled = false;
+  video.srcObject = stream;
+}
+
+function handleError(error) {
+  console.error('Error: ', error);
+}
+</script>

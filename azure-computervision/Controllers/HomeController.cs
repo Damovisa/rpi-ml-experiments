@@ -20,12 +20,19 @@ namespace azure_computervision.Controllers
         private string _azureKey;
         private string _rootFolder;
 
-        public HomeController(IConfiguration iConfig, IHostingEnvironment env) {
-             _azureKey = iConfig.GetValue<string>("AzureKey");
-             _rootFolder = env.WebRootPath;
+        public HomeController(IConfiguration iConfig, IHostingEnvironment env)
+        {
+            _azureKey = iConfig.GetValue<string>("AzureKey");
+            _rootFolder = env.WebRootPath;
         }
-        
+
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet("Webcam")]
+        public IActionResult Webcam()
         {
             return View();
         }
@@ -46,7 +53,8 @@ namespace azure_computervision.Controllers
 
             var imageResult = JToken.Parse(await ReadHandwrittenText(filePath, _azureKey));
             var imageText = "An error occurred :(";
-            if ((string)imageResult["status"] == "Succeeded") {
+            if ((string)imageResult["status"] == "Succeeded")
+            {
                 imageText = (string)imageResult["recognitionResult"]["lines"][0]["text"];
             }
 
@@ -62,6 +70,35 @@ namespace azure_computervision.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpPost("FileUpload")]
+        public async Task<JsonResult> FileUpload(string imgBase64)
+        {
+            // full path to file in temp location
+            var filePath = Path.Combine(_rootFolder, $"uploaded/temp.png");
+            if (!string.IsNullOrEmpty(imgBase64))
+            {
+                var pureBase64 = imgBase64.Replace("data:image/png;base64,", "");
+                Byte[] bytes = Convert.FromBase64String(pureBase64);
+                using (var imageFile = new FileStream(filePath, FileMode.Create))
+                {
+                    imageFile.Write(bytes, 0, bytes.Length);
+                    imageFile.Flush();
+                }
+            }
+
+            var imageResult = JToken.Parse(await ReadHandwrittenText(filePath, _azureKey));
+            var imageText = "An error occurred :(";
+            if ((string)imageResult["status"] == "Succeeded")
+            {
+                try {
+                    imageText = (string)imageResult["recognitionResult"]["lines"][0]["text"];
+                } catch (System.ArgumentOutOfRangeException) {
+                    return Json(new {result = "no text found!"});
+                }
+            }
+
+            return Json(new {result = imageText });
+        }
 
         /// <summary>
         /// Gets the handwritten text from the specified image file by using
