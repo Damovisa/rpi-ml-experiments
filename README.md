@@ -35,7 +35,7 @@ Using [Azure Custom Vision](https://customvision.ai), train a **compact** model
 
 ### Using the trained model
 
-Once trained, you can [export a mobile model](https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/export-your-model).
+Once trained, you can [export a mobile model](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/export-your-model?WT.mc_id=devops-0000-dabrady).
 Use the Tensorflow for Android export type.
 
 From the downloaded zip, place the `model.pb` and `labels.txt` files in the
